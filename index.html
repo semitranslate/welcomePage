@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>政策智能问答</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* 主容器 */
+        .container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* 页面背景 */
+        .page-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-image: url('./2.png');
+            /* 请替换为实际图片URL */
+            filter: blur(3px);
+            z-index: 1;
+        }
+
+        /* 欢迎蒙层和启动按钮 */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            opacity: 1;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .welcome-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .start-button {
+            width: 300px;
+            height: 80px;
+            background-color: #3B82F6;
+            color: white;
+            border-radius: 18px;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+            animation: pulse 2.5s infinite ease-in-out;
+            transition: transform 0.6s ease-in, opacity 0.5s ease-in;
+        }
+
+        /* 辐射特效 */
+        .welcome-overlay.hidden .start-button {
+            transform: scale(22);
+            opacity: 0.1;
+        }
+
+        /* 呼吸特效动画 */
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(0, 123, 255, 0.7);
+            }
+
+            70% {
+                box-shadow: 0 0 0 25px rgba(0, 123, 255, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 123, 255, 0);
+            }
+        }
+
+        /* 关键词交互页面 */
+        .keyword-page {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-image: url('./2.png');
+            /* 请替换为实际图片URL */
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            padding: 40px 20px 20px 20px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in 0.3s;
+            /* 延迟淡入 */
+        }
+
+        /* 显示交互页 */
+        .keyword-page.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="page-background"></div>
+
+        <div class="welcome-overlay" id="welcome-overlay">
+            <button class="start-button" id="start-button">
+                开启智能问答
+            </button>
+        </div>
+
+        <div class="keyword-page" id="keyword-page">
+            <!-- 这里将添加问答界面内容 -->
+        </div>
+    </div>
+
+    <script>
+        // 获取DOM元素
+        const welcomeOverlay = document.getElementById('welcome-overlay');
+        const startButton = document.getElementById('start-button');
+        const keywordPage = document.getElementById('keyword-page');
+
+        // 启动按钮点击事件
+        startButton.addEventListener('click', () => {
+            // 添加hidden类触发CSS动画
+            welcomeOverlay.classList.add('hidden');
+
+            // 显示关键词交互页面
+            keywordPage.classList.add('visible');
+
+            // 动画结束后彻底隐藏蒙层
+            setTimeout(() => {
+                welcomeOverlay.style.display = 'none';
+            }, 600);
+        });
+    </script>
+</body>
+
+</html>
